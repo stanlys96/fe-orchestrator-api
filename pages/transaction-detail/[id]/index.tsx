@@ -1,14 +1,6 @@
-import axios from "axios";
+import { fetcher } from "@/utils/api";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import ReactJson from "react-json-view";
-
-const getJsonIndented = (obj: any) =>
-  JSON.stringify(JSON.parse(obj), null, 2).replace(/["{[,\}\]]/g, "");
-
-const axiosCustom = axios.create({ baseURL: "http://localhost:3000" });
-
-const fetcher = (url: string) => axiosCustom.get(url).then((res) => res);
 
 export default function TransactionDetail() {
   const router = useRouter();

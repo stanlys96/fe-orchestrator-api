@@ -1,14 +1,6 @@
-import axios from "axios";
+import { fetcher } from "@/utils/api";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import ReactJson from "react-json-view";
-
-const getJsonIndented = (obj: any) =>
-  JSON.stringify(obj, null, 4).replace(/["{[,\}\]]/g, "");
-
-const axiosCustom = axios.create({ baseURL: "http://localhost:3000" });
-
-const fetcher = (url: string) => axiosCustom.get(url).then((res) => res);
 
 export default function TransactionDetail() {
   const router = useRouter();
@@ -18,11 +10,7 @@ export default function TransactionDetail() {
     fetcher
   );
   const transactionData = data?.data.data;
-  const json = {
-    name: "John Doe",
-    age: 32,
-    email: "johndoe@example.com",
-  };
+
   return (
     <div className="min-h-[100vh] bg-white">
       {transactionData && (
