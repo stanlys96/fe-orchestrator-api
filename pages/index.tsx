@@ -13,8 +13,10 @@ import {
   TransactionSelect,
   TransactionStatusSelect,
 } from "@/components";
+import { useRouter } from "next/router";
 
 export default function HomePage() {
+  const router = useRouter();
   const [currentData, setCurrentData] = useState({
     status: "",
     processName: "",
@@ -44,22 +46,35 @@ export default function HomePage() {
         <div className="py-3">
           <p className="text-center">Submit Order Table</p>
         </div>
-        <div className="flex gap-x-4 items-center pb-5">
-          <label>Search by ID</label>
-          <input
-            onChange={(e) => {
-              e.preventDefault();
-              setCurrentData({ ...currentData, id: e.target.value, page: 1 });
-            }}
-            className="border b-5 p-1 bg-black-40"
-            type="text"
-          />
+        <div className="flex gap-x-4 items-center justify-between pb-5">
+          <div>
+            <label>Search by ID</label>
+            <input
+              onChange={(e) => {
+                e.preventDefault();
+                setCurrentData({ ...currentData, id: e.target.value, page: 1 });
+              }}
+              className="border b-5 p-1 bg-black-40 ml-2"
+              type="text"
+            />
+          </div>
+          <div>
+            <button
+              onClick={() => {
+                router.push("/post");
+              }}
+              className="bg-lightGray p-2 rounded-xl text-white"
+            >
+              Go To Post Page
+            </button>
+          </div>
         </div>
         <div>
           <div className="flex justify-between pb-[25px] items-end">
             <TransactionSelect
               currentData={currentData}
               setCurrentData={setCurrentData}
+              category="get"
             />
             {currentData.category === "transaction" ? (
               <TransactionStatusSelect
